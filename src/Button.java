@@ -7,6 +7,7 @@ public class Button extends JButton {
     final static int WHITEPLAYER =1;
     final static int PROPOSITION =3;
     final static int OBSTACLE =4;
+    final static int ORDINATEUR=5;
     int state;
 
     int numero;

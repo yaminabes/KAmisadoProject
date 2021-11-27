@@ -24,6 +24,7 @@ public class ControlButton implements ActionListener {
     //bordures qui définissent les possibilités de jeu du joureur en cours
     final Border whiteBorder =BorderFactory.createLineBorder(Color.WHITE,5);
     final Border blackBorder =BorderFactory.createLineBorder(Color.BLACK,5);
+    final Border testBorder =BorderFactory.createLineBorder(Color.CYAN,5);
     //TODO
     final int WHITEPLAYER=1;
     final int BLACKPLAYER=2;
@@ -317,8 +318,8 @@ public class ControlButton implements ActionListener {
                 if(condition || orientation == STRAIGHT){
                     vue.buttons[i][jCliquedButton].setEnabled(true);
                     vue.buttons[i][jCliquedButton].setBorderPainted(true);
-                    vue.buttons[i][jCliquedButton].setBorder(blackBorder);
-                    vue.buttons[i][jCliquedButton].setState(Button.PROPOSITION);
+                    vue.buttons[i][jCliquedButton].setBorder(testBorder);
+                    vue.buttons[i][jCliquedButton].setState(Button.ORDINATEUR);
 
                 }
             }
@@ -398,7 +399,7 @@ public class ControlButton implements ActionListener {
                             buttons[i][j].setBorder(whiteBorder);
                         }
                         if (buttons[i+1][j].getState()==Button.OBSTACLE && buttons[i+1][j+1].getState()==Button.OBSTACLE&& buttons[i+1][j-1].getState()==Button.OBSTACLE ){
-                            mainNoireEntiere(buttons[i][j]);
+                            mainNoireEntiere();
                             buttons[i][j].setEnabled(false);
                             buttons[i][j].setBorderPainted(false);
                         }
@@ -431,15 +432,15 @@ public class ControlButton implements ActionListener {
         }
     }
 
-    public void mainNoireEntiere(Button clic){
+    public void mainNoireEntiere(){
         for (int i=0; i<8;i++) {
             for (int j = 0; j < 8; j++) {
                 vue.buttons[i][j].setEnabled(false);
                 if (vue.buttons[i][j].getState() == BLACKPLAYER || vue.buttons[i][j].getState() == Button.OBSTACLE && vue.buttons[i][j].getTour().getPlayer() == BLACKPLAYER) {
-                    if(vue.buttons[i][j].getTour().getRectColor()==cliquedButtonWhiteChose.getBackground()) {
-                        System.out.println("okokokok");
-                        vue.buttons[i][j].setEnabled(true);
+                    if(vue.buttons[i][j].getTour().getRectColor()==cliquedButtonWhitePlay.getBackground()) {
 
+                        vue.buttons[i][j].setEnabled(true);
+                        vue.buttons[i][j].setState(Button.ORDINATEUR);
                         vue.buttons[i][j].setBorder(blackBorder);
                         vue.buttons[i][j].setBorderPainted(true);
                         setBlackTower(vue.buttons[i][j].getTour());
@@ -490,13 +491,13 @@ public class ControlButton implements ActionListener {
 
                         try{
                             if (vue.buttons[i + 1][j].getState() == Button.OBSTACLE && vue.buttons[i + 1][j + 1].getState() == Button.OBSTACLE && vue.buttons[i + 1][j - 1].getState() == Button.OBSTACLE) {
-                                mainNoireEntiere(vue.buttons[i][j]);
+                                mainNoireEntiere();
                                 //vue.buttons[i][j].setEnabled(false);
                                 //vue.buttons[i][j].setBorderPainted(false);
                             }
                         }
                         catch(ArrayIndexOutOfBoundsException ae){
-                            mainNoireEntiere(vue.buttons[i][j]);
+                            mainNoireEntiere();
                         }
 
                     }
